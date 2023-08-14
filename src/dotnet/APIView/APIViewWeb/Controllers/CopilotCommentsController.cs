@@ -24,7 +24,7 @@ namespace APIViewWeb.Controllers
             if (badCode == null)
             {
                 _logger.LogInformation("Request does not have the required badCode field for CREATE.");
-                return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+                return StatusCode(statusCode: StatusCodes.Status400BadRequest);
             }
 
             var id = await _copilotManager.CreateDocumentAsync(User.GetGitHubLogin(), badCode, goodCode, language, comment, guidelineIds);
@@ -39,7 +39,7 @@ namespace APIViewWeb.Controllers
             if (id == null)
             {
                 _logger.LogInformation("Request does not have the required ID field for UPDATE.");
-                return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+                return StatusCode(statusCode: StatusCodes.Status400BadRequest);
             }
 
             var result = await _copilotManager.UpdateDocumentAsync(User.GetGitHubLogin(), id, badCode, goodCode, language, comment, guidelineIds);
